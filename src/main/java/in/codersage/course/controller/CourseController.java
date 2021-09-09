@@ -32,30 +32,30 @@ public class CourseController {
         return ResponseEntity.ok().body(crs);
     }
     @PostMapping(value="/courses")
-    ResponseEntity<?> createProduct(@Valid @RequestBody CourseDTO incrs) {
-        Course prd      = CourseMapper.DtoToEntity(incrs);
-        Course addedprd = courseService.save(prd);
+    ResponseEntity<?> createCourse(@Valid @RequestBody CourseDTO incrs) {
+        Course course      = CourseMapper.DtoToEntity(incrs);
+        Course addedcrs = courseService.save(course);
         URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(addedprd.getId())
+                .buildAndExpand(addedcrs.getId())
                 .toUri();
         return ResponseEntity.created(location).build();
     }
     @PutMapping(value="/courses/{id}")
-    ResponseEntity<Course> updateProduct(@PathVariable("id")  @Min(1) int id, @Valid @RequestBody CourseDTO incourse) {
-        Course prd = courseService.findById(id)
+    ResponseEntity<Course> updateCourse(@PathVariable("id")  @Min(1) int id, @Valid @RequestBody CourseDTO incourse) {
+        Course course = courseService.findById(id)
                 .orElseThrow(()->new CourseNotFoundException(id));
 
         Course newcrs = CourseMapper.DtoToEntity(incourse);
-        newcrs.setId(prd.getId());
+        newcrs.setId(course.getId());
         courseService.save(newcrs);
         return ResponseEntity.ok().body(newcrs);
     }
-    @DeleteMapping(value="/products/{id}")
-    ResponseEntity deleteProduct(@PathVariable("id") @Min(1) int id) {
-        Course prd = courseService.findById(id)
+    @DeleteMapping(value="/courses/{id}")
+    ResponseEntity deleteCourse(@PathVariable("id") @Min(1) int id) {
+        Course course = courseService.findById(id)
                 .orElseThrow(()->new CourseNotFoundException(id));
-        courseService.delete(prd.getId());
+        courseService.delete(course.getId());
         return ResponseEntity.ok().body("Course with ID : "+id+" deleted with success!");
     }
 }
