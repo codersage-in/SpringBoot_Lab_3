@@ -6,6 +6,7 @@ import in.codersage.course.exception.CourseNotFoundException;
 import in.codersage.course.mapper.CourseMapper;
 import in.codersage.course.service.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -31,7 +32,7 @@ public class CourseController {
                 .orElseThrow(()->new CourseNotFoundException(id));
         return ResponseEntity.ok().body(crs);
     }
-    @PostMapping(value="/courses")
+    @PostMapping(value="/courses", produces = MediaType.APPLICATION_JSON_VALUE)
     ResponseEntity<?> createCourse(@Valid @RequestBody CourseDTO incrs) {
         Course course      = CourseMapper.DtoToEntity(incrs);
         Course addedcrs = courseService.save(course);
