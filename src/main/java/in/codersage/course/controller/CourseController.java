@@ -22,6 +22,11 @@ public class CourseController {
     @Autowired
     ICourseService courseService;
 
+    @GetMapping("/greetings")
+    ResponseEntity getWelcomeMessage(){
+        return ResponseEntity.ok().body("Welcome to the world of Spring Boot Programming!!!!!");
+    }
+
     @GetMapping(value="/courses")
     List<Course> getAll(){
         return courseService.getAllCourses();
