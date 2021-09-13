@@ -24,7 +24,7 @@ public class CourseController {
 
     @GetMapping("/greetings")
     ResponseEntity getWelcomeMessage(){
-        return ResponseEntity.ok().body("Welcome to the world of Spring Boot Programming!!!!!");
+        return ResponseEntity.ok().body("Welcome to the world of Spring Boot Programming with Jenkins!!!!!");
     }
 
     @GetMapping(value="/courses")
